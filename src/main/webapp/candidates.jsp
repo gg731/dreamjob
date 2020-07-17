@@ -1,9 +1,7 @@
-<html>
-<!doctype html>
-<html lang="en">
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="Model.Store" %>
-<%@ page import="Model.Post" %>
+<%@ page import="Model.Candidate" %>
+<html>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -22,40 +20,35 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
-    <head>
-        <title>Dream Job</title>
-    </head>
+    <title>Job dreams</title>
+</head>
 <body>
 <div class="container pt-3">
-
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Вакансии
+                Кандидаты
             </div>
             <div class="card-body">
                 <table class="table">
                     <thead>
-                    <th scope="col">
-                        Названия
-                    </th>
+                    <tr>
+                        <th scope="col">Названия</th>
+                    </tr>
                     </thead>
                     <tbody>
-                    <% for (Post post : Store.instOf().findAllPosts()) { %>
+                    <% for (Candidate candidate : Store.instOf().findAllCandidate()) { %>
                     <tr>
-                        <td>
-                            <%= post.getName()%>
+                        <td><%= candidate.getName()%>
                         </td>
-                        <% } %>
                     </tr>
+                    <% } %>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 </div>
-
 
 </body>
 </html>
