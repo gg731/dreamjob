@@ -18,9 +18,9 @@ public class Store {
         posts.put(1, new Post(1, "Junior Java Job", "Вакансия 1", new Date()));
         posts.put(2, new Post(2, "Middle Java Job", "Вакансия 2", new Date()));
         posts.put(3, new Post(3, "Senior Java Job", "Вакансия 3", new Date()));
-        candidates.put(1, new Candidate(POST_ID.incrementAndGet(), "Java Junior"));
-        candidates.put(2, new Candidate(POST_ID.incrementAndGet(), "Java Middle"));
-        candidates.put(3, new Candidate(POST_ID.incrementAndGet(), "Java Senior"));
+        candidates.put(1, new Candidate(1, "Java Junior"));
+        candidates.put(2, new Candidate(2, "Java Middle"));
+        candidates.put(3, new Candidate(3, "Java Senior"));
     }
 
     public static Store instOf() {
