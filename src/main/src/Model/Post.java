@@ -9,8 +9,7 @@ public class Post {
     private String description;
     private Date created;
 
-    public Post(int id, String name) {
-        this.id = id;
+    public Post(String name) {
         this.name = name;
     }
 
