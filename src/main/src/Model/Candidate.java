@@ -11,6 +11,10 @@ public class Candidate {
         this.name = name;
     }
 
+    public Candidate(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
