@@ -19,6 +19,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Job dreams</title>
 </head>
@@ -40,32 +41,36 @@
             </li>
         </ul>
     </div>
-<div class="container pt-3">
-    <div class="row">
-        <div class="card" style="width: 100%">
-            <div class="card-header">
-                Кандидаты
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Названия</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <% for (Candidate candidate : Store.instOf().findAllCandidate()) { %>
-                    <tr>
-                        <td><%= candidate.getName()%>
-                        </td>
-                    </tr>
-                    <% } %>
-                    </tbody>
-                </table>
+    <div class="container pt-3">
+        <div class="row">
+            <div class="card" style="width: 100%">
+                <div class="card-header">
+                    Кандидаты
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Названия</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for (Candidate candidate : Store.instOf().findAllCandidate()) { %>
+                        <tr>
+                            <td>
+                                <a href="<%=request.getContextPath()%>/candidate/create.jsp?id=<%=candidate.getId()%>">
+                                    <i class="fa fa-edit mr-3"></i>
+                                </a>
+                                <%= candidate.getName()%>
+                            </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </body>
 </html>

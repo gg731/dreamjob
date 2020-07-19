@@ -21,10 +21,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <head>
-        <title>Dream Job</title>
-    </head>
+    <title>Dream Job</title>
+</head>
 <body>
 <div class="container">
     <div class="row">
@@ -43,35 +43,36 @@
             </li>
         </ul>
     </div>
-<div class="container pt-3">
-    <div class="row">
-        <div class="card" style="width: 100%">
-            <div class="card-header">
-                Вакансии
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                    <th scope="col">
-                        Названия
-                    </th>
-                    </thead>
-                    <tbody>
-                    <% for (Post post : Store.instOf().findAllPosts()) { %>
-                    <tr>
-                        <td>
-                            <%= post.getName()%>
-                        </td>
-                        <% } %>
-                    </tr>
-                    </tbody>
-                </table>
+    <div class="container pt-3">
+        <div class="row">
+            <div class="card" style="width: 100%">
+                <div class="card-header">
+                    Вакансии
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <th scope="col">
+                            Названия
+                        </th>
+                        </thead>
+                        <tbody>
+                        <% for (Post post : Store.instOf().findAllPosts()) { %>
+                        <tr>
+                            <td>
+                                <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
+                                    <i class="fa fa-edit mr-3"></i>
+                                </a>
+                                <%= post.getName()%>
+                            </td>
+                            <% } %>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
     </div>
-
-</div>
-
-
 </body>
 </html>
