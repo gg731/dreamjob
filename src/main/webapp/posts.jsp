@@ -4,6 +4,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="Model.Store" %>
 <%@ page import="Model.Post" %>
+<%@ page import="java.util.Collection" %>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -30,10 +31,10 @@
     <div class="row">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/posts.jsp">Вакансии</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.jsp">Кандидаты</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<%= request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
@@ -57,7 +58,7 @@
                         </th>
                         </thead>
                         <tbody>
-                        <% for (Post post : Store.instOf().findAllPosts()) { %>
+                        <% for (Post post : (Collection<Post>) request.getAttribute("posts")) { %>
                         <tr>
                             <td>
                                 <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
