@@ -90,7 +90,6 @@ public class PsqlStore implements Store {
             ps.setInt(1, post.getId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                System.out.println("ssss");
                 updatePost(post);
             } else {
                 createPost(post);
