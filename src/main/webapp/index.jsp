@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="Model.Store" %>
+<%@ page import="Model.MemStore" %>
 <%@ page import="Model.Post" %>
 <!doctype html>
 <html lang="en">

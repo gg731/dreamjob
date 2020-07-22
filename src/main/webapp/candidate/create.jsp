@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="Model.Candidate" %>
-<%@ page import="Model.Store" %>
+<%@ page import="Model.MemStore" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@
     String id = request.getParameter("id");
     Candidate candidate = new Candidate(0, "");
     if (id != null) {
-        candidate = Store.instOf().findCandidateById(Integer.valueOf(id));
+        candidate = MemStore.instOf().findCandidateById(Integer.valueOf(id));
     }
 %>
 <div class="container">
