@@ -1,3 +1,4 @@
+import Model.Candidate;
 import Model.Post;
 import Model.PsqlStore;
 import Model.Store;
@@ -5,15 +6,16 @@ import Model.Store;
 public class PsqlMain {
     public static void main(String[] args) {
         Store psql = PsqlStore.instOf();
-        psql.save(new Post(5, "Java 103"));
-
+        psql.savePost(new Post(9, "Java 105"));
 
         for (Post post : psql.findAllPost()) {
             System.out.println(post.getId() + " " + post.getName());
         }
 
-        System.out.println(psql.findById(7).getName());
+        psql.saveCandidate(new Candidate(0, "Java Middle"));
 
-
+        for (Candidate c : psql.findAllCandidate()) {
+            System.out.println(c.getId() + " " + c.getName());
+        }
     }
 }
