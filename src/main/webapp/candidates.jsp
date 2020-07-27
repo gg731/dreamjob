@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <html>
 <head>
@@ -38,6 +38,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="<%= request.getContextPath()%>/candidate/create.jsp">Добавить кандидата</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%= request.getContextPath()%>/upload">Изображения</a>
+            </li>
         </ul>
     </div>
     <div class="container pt-3">
@@ -56,11 +59,21 @@
                         <tbody>
                         <c:forEach items="${candidates}" var="candidate">
                             <tr>
-                                <td>
-                                    <a href='<c:url value="candidate/create.jsp?=${candidate.id}"/>'>
-                                        <i class="fa fa-edit mr-3"></i>
-                                    </a>
+                                <td width="10%">
+                                    <img src="<c:url value='/download?photoId=${candidate.photoId}' />" width="50px"
+                                         height="50px"/>
+                                    <a href="<c:url value='/download?photoId=${candidate.photoId}'/>"
+                                       style="font-size: 0.7rem">Download</a>
+                                </td>
+                                <td style="vertical-align: middle" width="20%">
                                     <c:out value="${candidate.name}"/>
+                                    <a href="<c:url value='candidate/create.jsp?id=${candidate.id}&photoId=${candidate.photoId}'/>">
+                                        <i class=" fa fa-edit mr-3"></i>
+                                    </a>
+                                </td>
+                                <td style="vertical-align: middle">
+                                    <a href="<c:url value='/candidates.do?delete=${candidate.id}&photoId=${candidate.photoId}'/>"
+                                       style="color: darkred">Удалить</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -70,5 +83,6 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

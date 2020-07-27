@@ -74,7 +74,7 @@ public class PsqlStore implements Store {
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM candidate")) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    candidates.add(new Candidate(rs.getInt("id"), rs.getString("name")));
+                    candidates.add(new Candidate(rs.getInt("id"), rs.getString("name"), rs.getString("photoId")));
                 }
             }
         } catch (SQLException e) {
@@ -142,6 +142,7 @@ public class PsqlStore implements Store {
             if (rs.next()) {
                 candidate.setId(rs.getInt("id"));
                 candidate.setName(rs.getString("name"));
+                candidate.setPhotoId(rs.getString("photoId"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -186,8 +187,14 @@ public class PsqlStore implements Store {
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 while (rs.next()) {
                     candidate.setId(rs.getInt(1));
+                    candidate.setPhotoId(rs.getInt(1) + ".jpg");
                 }
             }
+            PreparedStatement psPhotoId = cn.prepareStatement("UPDATE candidate SET photoId = ? WHERE id = ?");
+            psPhotoId.setString(1, candidate.getPhotoId());
+            psPhotoId.setInt(2, candidate.getId());
+            psPhotoId.execute();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -196,9 +203,20 @@ public class PsqlStore implements Store {
 
     public void updateCandidate(Candidate candidate) {
         try (Connection cn = dataSource.getConnection();
-             PreparedStatement ps = cn.prepareStatement("UPDATE candidate SET name = ? WHERE id = ?")) {
+             PreparedStatement ps = cn.prepareStatement("UPDATE candidate SET name = ? , photoId = ?  WHERE id = ?")) {
             ps.setString(1, candidate.getName());
-            ps.setInt(2, candidate.getId());
+            ps.setString(2, candidate.getId() + ".jpg");
+            ps.setInt(3, candidate.getId());
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteCandidate(int id) {
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM candidate WHERE id = ?")) {
+            ps.setInt(1, id);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();

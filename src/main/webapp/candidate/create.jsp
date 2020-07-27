@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page import="Model.Candidate" %>
-<%@ page import="Model.MemStore" %>
 <%@ page import="Model.PsqlStore" %>
 <!doctype html>
 <html lang="en">
@@ -27,11 +27,12 @@
 <body>
 <%
     String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "");
+    Candidate candidate = new Candidate(0, "", "");
     if (id != null) {
         candidate = PsqlStore.instOf().findByIdCandidate(Integer.valueOf(id));
     }
 %>
+
 <div class="container">
     <div class="row">
         <ul class="nav">
@@ -46,6 +47,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<%= request.getContextPath()%>/candidate/create.jsp">Добавить кандидата</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%= request.getContextPath()%>/upload">Изображения</a>
             </li>
         </ul>
     </div>
@@ -63,13 +67,30 @@
                     <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>" method="post">
                         <div class="form-group">
                             <label>Имя</label>
-                            <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
+                            <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>"
+                                   style="width: 25%">
                         </div>
                         <button type="submit" class="btn btn-primary">Сохранить</button>
                     </form>
+
+                    <% if (id != null) { %>
+                    <div style="margin-top: 5%">
+                        <img src="<c:url value='/download?photoId=${param.photoId}' />" width="50px"
+                             height="50px"/>
+                        <form action="<c:url value="/upload?photoId=${param.photoId}"/>" method="post"
+                              enctype="multipart/form-data">
+                            <label>Загрузить фотографию</label>
+                            <div class="checkbox">
+                                <input type="file" name="file">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Загрузить</button>
+                        </form>
+                    </div>
+                    <% } %>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

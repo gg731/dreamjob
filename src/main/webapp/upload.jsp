@@ -4,11 +4,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -24,7 +22,9 @@
 
     <title>Dream Job</title>
 </head>
+
 <body>
+
 <div class="container">
     <div class="row">
         <ul class="nav">
@@ -45,36 +45,30 @@
             </li>
         </ul>
     </div>
-    <div class="container pt-3">
-        <div class="row">
-            <div class="card" style="width: 100%">
-                <div class="card-header">
-                    Вакансии
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                        <th scope="col">
-                            Названия
-                        </th>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${posts}" var="post">
-                            <tr>
-                                <td>
-                                    <a href='<c:url value="post/edit.jsp?id=${post.id}"/>'>
-                                        <i class="fa fa-edit mr-3"></i>
-                                    </a>
-                                    <c:out value="${post.name}"/>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>URL</th>
+            <th>View</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${images}" var="image" varStatus="status">
+        <tr valign="top">
+            <td><a href="<c:url value='/download?photoId=${image}'/>">Download</a></td>
+            <td>
+                <img src="<c:url value='/download?photoId=${image}'/>" width="100px" height="100px"/>
+                </c:forEach>
+        </tbody>
+    </table>
+    <h2>Upload image</h2>
+    <form action="<c:url value="/upload"/>" method="post" enctype="multipart/form-data">
+        <div class="checkbox">
+            <input type="file" name="file">
         </div>
+        <button type="submit" class="btn btn-primary">Загрузить</button>
+    </form>
 
-    </div>
+</div>
 </body>
 </html>
