@@ -1,5 +1,6 @@
 package Servlet;
 
+import Model.PsqlStore;
 import Model.User;
 
 import javax.servlet.ServletException;
@@ -16,14 +17,11 @@ public class AuthServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        if ("root@local".equals(email) && "root".equals(password)) {
+        User user = PsqlStore.instOf().findUserByEmail(email);
+
+        if (user != null && user.getPassword().equals(password)) {
             HttpSession session = req.getSession();
-            User admin = new User();
-            admin.setId(1);
-            admin.setName("admin");
-            admin.setPassword(password);
-            admin.setEmail(email);
-            session.setAttribute("user", admin);
+            session.setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/posts.do");
         } else {
             req.setAttribute("authError", "Не верная почта или пароль");

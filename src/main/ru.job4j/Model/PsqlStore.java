@@ -226,7 +226,7 @@ public class PsqlStore implements Store {
     @Override
     public void saveUser(User user) {
         try (Connection cn = dataSource.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM user where id = ?")) {
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM userdb where id = ?")) {
             ps.setInt(1, user.getId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -242,7 +242,7 @@ public class PsqlStore implements Store {
     @Override
     public void deleteUser(int id) {
         try (Connection cn = dataSource.getConnection();
-             PreparedStatement ps = cn.prepareStatement("DELETE FROM user WHERE id = ?")) {
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM userdb WHERE id = ?")) {
             ps.setInt(1, id);
             ps.execute();
         } catch (SQLException e) {
@@ -252,10 +252,31 @@ public class PsqlStore implements Store {
     }
 
     @Override
+    public User findUserByEmail(String email) {
+        User user = new User();
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM userdb WHERE email = ?")) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (user.getId() != 0) {
+            return user;
+        } else return null;
+    }
+
+    @Override
     public User findUserById(int id) {
         User user = new User();
         try (Connection cn = dataSource.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")) {
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM userdb WHERE id = ?")) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -294,7 +315,7 @@ public class PsqlStore implements Store {
 
     public void updateUser(User user) {
         try (Connection cn = dataSource.getConnection();
-             PreparedStatement ps = cn.prepareStatement("UPDATE user SET name= ?, email=?,password =? WHERE id= ?")
+             PreparedStatement ps = cn.prepareStatement("UPDATE userdb SET name= ?, email=?,password =? WHERE id= ?")
         ) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
@@ -308,7 +329,7 @@ public class PsqlStore implements Store {
 
     public void createUser(User user) {
         try (Connection cn = dataSource.getConnection();
-             PreparedStatement ps = cn.prepareStatement("INSERT INTO  user(name,email,password) values(?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO  userdb(name,email,password) values(?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
