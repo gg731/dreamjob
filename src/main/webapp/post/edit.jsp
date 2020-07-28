@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="Model.Post" %>
-<%@ page import="Model.MemStore" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page import="Model.PsqlStore" %>
+<%@ page import="Model.Post" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -50,6 +50,23 @@
             <li class="nav-item">
                 <a class="nav-link" href="<%= request.getContextPath()%>/upload">Изображения</a>
             </li>
+
+            <c:choose>
+                <c:when test="${sessionScope.user.name != null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"><c:out
+                                value="${sessionScope.user.name}"/> | Выйти</a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти
+                        </a>
+                    </li>
+                </c:otherwise>
+
+            </c:choose>
+
         </ul>
     </div>
     <div class="container pt-3">
@@ -74,5 +91,6 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
