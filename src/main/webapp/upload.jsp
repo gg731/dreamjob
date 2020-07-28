@@ -70,14 +70,14 @@
         <tbody>
         <c:forEach items="${images}" var="image" varStatus="status">
         <tr valign="top">
-            <td><a href="<c:url value='/download?photoId=${image}'/>">Download</a></td>
+            <td><a href="<c:url value='/download.do?photoId=${image}'/>">Download</a></td>
             <td>
-                <img src="<c:url value='/download?photoId=${image}'/>" width="100px" height="100px"/>
+                <img src="<c:url value='/download.do?photoId=${image}'/>" width="100px" height="100px"/>
                 </c:forEach>
         </tbody>
     </table>
     <h2>Upload image</h2>
-    <form action="<c:url value="/upload"/>" method="post" enctype="multipart/form-data">
+    <form action="<c:url value="/upload.do"/>" method="post" enctype="multipart/form-data">
         <div class="checkbox">
             <input type="file" name="file">
         </div>

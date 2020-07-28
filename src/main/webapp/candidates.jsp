@@ -75,9 +75,9 @@
                         <c:forEach items="${candidates}" var="candidate">
                             <tr>
                                 <td width="10%">
-                                    <img src="<c:url value='/download?photoId=${candidate.photoId}' />" width="50px"
+                                    <img src="<c:url value='/download.do?photoId=${candidate.photoId}' />" width="50px"
                                          height="50px"/>
-                                    <a href="<c:url value='/download?photoId=${candidate.photoId}'/>"
+                                    <a href="<c:url value='/download.do?photoId=${candidate.photoId}'/>"
                                        style="font-size: 0.7rem">Download</a>
                                 </td>
                                 <td style="vertical-align: middle" width="20%">

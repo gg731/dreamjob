@@ -90,9 +90,9 @@
 
                     <% if (id != null) { %>
                     <div style="margin-top: 5%">
-                        <img src="<c:url value='/download?photoId=${param.photoId}' />" width="50px"
+                        <img src="<c:url value='/download.do?photoId=${param.photoId}' />" width="50px"
                              height="50px"/>
-                        <form action="<c:url value="/upload?photoId=${param.photoId}"/>" method="post"
+                        <form action="<c:url value="/upload.do?photoId=${param.photoId}"/>" method="post"
                               enctype="multipart/form-data">
                             <label>Загрузить фотографию</label>
                             <div class="checkbox">
