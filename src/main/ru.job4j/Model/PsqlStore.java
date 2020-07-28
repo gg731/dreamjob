@@ -116,7 +116,7 @@ public class PsqlStore implements Store {
     }
 
     @Override
-    public Post findByIdPost(int id) {
+    public Post findPostById(int id) {
         Post post = new Post(0, "");
         try (Connection cn = dataSource.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM post where id = ?")) {
@@ -218,6 +218,106 @@ public class PsqlStore implements Store {
              PreparedStatement ps = cn.prepareStatement("DELETE FROM candidate WHERE id = ?")) {
             ps.setInt(1, id);
             ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveUser(User user) {
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM user where id = ?")) {
+            ps.setInt(1, user.getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                updateUser(user);
+            } else {
+                createUser(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM user WHERE id = ?")) {
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public User findUserById(int id) {
+        User user = new User();
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
+    public Collection<User> findAllUser() {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement("SELECT * FROM user")) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    users.add(
+                            new User(
+                                    rs.getInt("id"),
+                                    rs.getString("name"),
+                                    rs.getString("email"),
+                                    rs.getString("password")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
+    public void updateUser(User user) {
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps = cn.prepareStatement("UPDATE user SET name= ?, email=?,password =? WHERE id= ?")
+        ) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setInt(4, user.getId());
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createUser(User user) {
+        try (Connection cn = dataSource.getConnection();
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO  user(name,email,password) values(?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.execute();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                while (rs.next()) {
+                    user.setId(rs.getInt(1));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

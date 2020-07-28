@@ -11,11 +11,17 @@ public interface Store {
 
     void saveCandidate(Candidate candidate);
 
-    Post findByIdPost(int id);
+    Post findPostById(int id);
 
     Candidate findByIdCandidate(int id);
 
-    void updateCandidate(Candidate candidate);
-
     void deleteCandidate(int id);
+
+    void saveUser(User user);
+
+    User findUserById(int id);
+
+    Collection<User> findAllUser();
+
+    void deleteUser(int id);
 }
