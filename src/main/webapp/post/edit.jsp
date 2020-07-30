@@ -29,7 +29,7 @@
     String id = request.getParameter("id");
     Post post = new Post(0, "");
     if (id != null) {
-        post = PsqlStore.instOf().findByIdPost(Integer.valueOf(id));
+        post = PsqlStore.instOf().findPostById(Integer.valueOf(id));
     }
 %>
 <div class="container">
@@ -48,7 +48,7 @@
                 <a class="nav-link" href="<%= request.getContextPath()%>/candidate/create.jsp">Добавить кандидата</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%= request.getContextPath()%>/upload">Изображения</a>
+                <a class="nav-link" href="<%= request.getContextPath()%>/upload.do">Изображения</a>
             </li>
 
             <c:choose>

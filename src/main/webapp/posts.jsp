@@ -41,7 +41,7 @@
                 <a class="nav-link" href="<%= request.getContextPath()%>/candidate/create.jsp">Добавить кандидата</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%= request.getContextPath()%>/upload">Изображения</a>
+                <a class="nav-link" href="<%= request.getContextPath()%>/upload.do">Изображения</a>
             </li>
             <c:choose>
                 <c:when test="${sessionScope.user.name != null}">
