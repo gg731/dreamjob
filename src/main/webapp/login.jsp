@@ -22,6 +22,17 @@
             }
             return true;
         }
+
+        function addRow() {
+            var usr = $('#usr').val();
+            var psw = $('#psw').val();
+
+            if (psw != '' || usr != '') {
+                $('#table tr:last').after('<tr><td>' + usr + '</td><td>' + psw + '</td></tr>');
+            } else {
+                alert('Данные отсутсвуют, заполните поля.')
+            }
+        }
     </script>
 
     <title>Dream Job</title>
@@ -52,6 +63,17 @@
                 <p/>
                 <a href="reg.jsp" style="color:steelblue">Регистрация</a>
             </div>
+
+            <button type="reset" class="btn btn-primary" onclick="addRow()">Добавить данные входа</button>
+
+            <table class="table" width="100%">
+                <tbody id='table'>
+                <tr>
+                    <td><b>Login</b></td>
+                    <td><b>Password</b></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
