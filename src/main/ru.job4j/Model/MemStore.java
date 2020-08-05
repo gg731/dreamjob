@@ -2,6 +2,7 @@ package Model;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -85,6 +86,11 @@ public class MemStore implements Store {
 
     @Override
     public User findUserByEmail(String email) {
+        return null;
+    }
+
+    @Override
+    public Map<Integer, String> getAllCities() {
         return null;
     }
 }

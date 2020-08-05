@@ -8,14 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class PsqlStore implements Store {
 
     private BasicDataSource dataSource = new BasicDataSource();
+    private Map<Integer, String> cities = new HashMap<>();
 
     private PsqlStore() {
         Properties cfg = new Properties();
@@ -39,6 +37,12 @@ public class PsqlStore implements Store {
         dataSource.setMinIdle(5);
         dataSource.setMaxIdle(10);
         dataSource.setMaxOpenPreparedStatements(100);
+
+        cities.put(1, "City1");
+        cities.put(2, "City2");
+        cities.put(3, "City3");
+        cities.put(4, "City4");
+        cities.put(5, "City5");
     }
 
     private static final class Lazy {
@@ -342,5 +346,10 @@ public class PsqlStore implements Store {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Map<Integer, String> getAllCities() {
+        return cities;
     }
 }

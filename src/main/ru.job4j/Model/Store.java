@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.Collection;
+import java.util.Map;
 
 public interface Store {
     Collection<Post> findAllPost();
@@ -26,5 +27,7 @@ public interface Store {
     void deleteUser(int id);
 
     User findUserByEmail(String email);
+
+    Map<Integer,String> getAllCities();
 
 }

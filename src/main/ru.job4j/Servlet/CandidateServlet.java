@@ -34,7 +34,8 @@ public class CandidateServlet extends HttpServlet {
         PsqlStore.instOf().saveCandidate(
                 new Candidate(
                         Integer.valueOf(req.getParameter("id")),
-                        req.getParameter("name")));
+                        req.getParameter("name"),
+                        req.getParameter("city")));
 
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }

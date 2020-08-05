@@ -61,7 +61,7 @@
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Войти</button>
                 </form>
                 <p/>
-                <a href="reg.jsp" style="color:steelblue">Регистрация</a>
+                <a href="<%=request.getContextPath()%>/reg.do" style="color:steelblue">Регистрация</a>
             </div>
 
             <button type="reset" class="btn btn-primary" onclick="addRow()">Добавить данные входа</button>
